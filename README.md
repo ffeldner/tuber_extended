@@ -76,3 +76,8 @@ login to TUBE in your browser and extract the JSESSIONID cookie through devtools
 * make offset and limit parameters to episode.json customizable through env variables
 
 * allow filtering of date ranges
+
+### Viewing slides side by side in mpv player (with on the fly video upscaling of the slides so the video dimensions align)
+
+    mpv 2025-03-05_01.mp4 --external-file=2025-03-05_01_Slides.mp4 --lavfi-complex='[vid2] scale=1920x1080:flags=spline [vid2_scale]; [vid1][vid2_scale] hstack [vo]'
+

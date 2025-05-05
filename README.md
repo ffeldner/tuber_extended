@@ -69,3 +69,10 @@ login to TUBE in your browser and extract the JSESSIONID cookie through devtools
     
     ...
 
+## To-Do List
+
+* give option to mux slides and video and subtitles into one file (VLC supports multi-monitor synchronous viewing that way)
+
+* make offset and limit parameters to episode.json customizable through env variables
+
+* allow filtering of date ranges

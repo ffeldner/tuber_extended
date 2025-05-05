@@ -2,7 +2,7 @@
 
 now with support for downloading presentation slide video track and vtt subtitles. also now supports more than only the first 100 episodes in a given lecture series (up to 2000). fallback is more robust and deduplicated now.
 
-huge thanks to daev for creating this
+huge thanks to daef for creating this
 
 ## requirements
 

@@ -1,6 +1,6 @@
 # tuber_extended - tube.tugraz.at downloader
 
-now with support for downloading presentation slide video track and vtt subtitles. also now supports more than only the first 100 episodes in a given lecture series (up to 2000). fallback is more robust and deduplicated now.
+now with support for downloading presentation slide video track and vtt subtitles. also now supports more than only the first 100 episodes in a given lecture series (up to 250). fallback is more robust and deduplicated now.
 
 huge thanks to daef for creating this
 
@@ -15,9 +15,8 @@ if you want to use tuber without polluting your PATH you might want to use the d
 
 ## using it to download
 
-tuber expects some environment variables:
+tuber expects the following environment variable:
 
-* USER and PASS contain the credentials to logon to tube.tugraz.at
 * COURSE contains the course-uuid to download
 
 you can also set the following additional environment variables:
@@ -27,17 +26,17 @@ default setting is slides and subtitles if they exist
 
 ### example without docker
 
-to download signal processing to the current directory
+to download the lecture "signal processing" to the current directory
 
-login to TUBE in your browser and extract the JSESSIONID cookie through devtools (F12). put it into the 'cookie' file.
+login to TUBE in your browser and extract your _oauth2_proxy cookie through devtools (F12). put it into the 'cookie' file at the end, replacing the placeholder text.
 
     COURSE=32dade20-36bd-4f2b-94f6-b655ff2ed74f ./tuber.sh
 
 ### example output
 
-    [>>O<<] manual cookie mode using cookie file active - please put your JSESSIONID cookie from your browser into the file 'cookie' [>>O<<]
+    [>>O<<] manual cookie mode using cookie file active - please put your _oauth2_proxy cookie from your browser into the file 'cookie' [>>O<<]
 
-    Episode JSON URL: https://tube.tugraz.at/search/episode.json?limit=2000&offset=0&sid=32dade20-36bd-4f2b-94f6-b655ff2ed74f
+    Episode JSON URL: https://tube.tugraz.at/search/episode.json?limit=250&offset=0&sid=32dade20-36bd-4f2b-94f6-b655ff2ed74f
 
     --- Episode #08 (shifted to April 11, 2025) from 2025-04-11
     No URL found for Presentation/Slides

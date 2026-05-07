@@ -28,7 +28,7 @@ default setting is slides and subtitles if they exist
 
 to download the lecture "signal processing" to the current directory
 
-login to TUBE in your browser and extract your **_oauth2_proxy** cookie through devtools (F12). Use ()[this image file] as a guideline. 
+login to TUBE in your browser and extract your **_oauth2_proxy** cookie through devtools (F12). Use [this image file](https://raw.githubusercontent.com/ffeldner/tuber_extended/refs/heads/master/cookie_example_firefox.png) as a guideline. 
 
 Put the value of your cookie into the 'cookie' file at the end of the line, replacing the placeholder text there with it.
 

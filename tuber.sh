@@ -1,7 +1,5 @@
 #!/bin/bash
 
-: "${USER:=user}"
-: "${PASS:=pass}"
 : "${COURSE:=32dade20-36bd-4f2b-94f6-b655ff2ed74f}"
 : "${QUALITY_PRESENTER:=high}"
 : "${QUALITY_PRESENTATION:=high}"
@@ -18,37 +16,20 @@ if [[ $NOPRESENTATIONSLIDES == 1 ]] ; then
 	echo "Presentation/Slides Download disabled..."
 fi
 
-CURL="curl -L -c cookies -b cookies"
-CURL_STDOUT="$CURL -s -o -"
-TUBE="https://tube.tugraz.at"
-INITURL="$TUBE/Shibboleth.sso/Login?target=/paella/ui/index.html"
-EPIURL="$TUBE/search/episode.json?limit=2000&offset=0&sid=$COURSE"
+CURL="curl -L -b cookies"
+EPIURL="https://tube.tugraz.at/search/episode.json?limit=250&offset=0&sid=$COURSE"
 
-if [[ ! $MANUALCOOKIES == 1 ]] ; then
-	RESPONSE=$($CURL_STDOUT -L -c cookies -b cookies -s -o - ${INITURL})
-	if [[ ! $RESPONSE =~ "Welcome to TU Graz TUbe" ]] ; then
-		echo logging in
-		LOGINURL="https://sso.tugraz.at$(echo "$RESPONSE" | htmlq --attribute action 'form[name=form1]')"
-		RESPONSE=$($CURL_STDOUT --data-urlencode lang="de" --data-urlencode _eventId_proceed="" --data-urlencode j_username="${USER}" --data-urlencode j_password="${PASS}" ${LOGINURL})
-		if [[ ! $RESPONSE =~ "Welcome to TU Graz TUbe" ]] ; then
-			echo sso logon failed
-			exit 23
-		fi
-	fi
-	echo logged in
-else
-	echo "[>>O<<] manual cookie mode using cookie file active - please put your JSESSIONID cookie from your browser into the file 'cookie' [>>O<<]"
-fi
+
+	echo "[>>O<<] manual cookie mode using cookie file active - please put your _oauth2_proxy cookie from your browser into the file 'cookie' [>>O<<]"
 
 echo -e "\nEpisode JSON URL: "$EPIURL
 $CURL -s -o episodes.json "$EPIURL"
 
-SERIESTITLE="$(cat episodes.json | jq -c "[.[\"search-results\"].result[].mediapackage| {seriestitle: .seriestitle}] | unique[0] | .seriestitle"| tr -d '[:punct:]')"
+SERIESTITLE="$(cat episodes.json | jq -c "[.result[].mediapackage| {seriestitle: .seriestitle}] | unique[0] | .seriestitle"| tr -d '[:punct:]')"
 
 mkdir -p "$SERIESTITLE"
 
 cat episodes.json | jq -c "
-	.[\"search-results\"]
 	.result[]
 	.mediapackage
 	| {
